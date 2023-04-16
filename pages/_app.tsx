@@ -5,10 +5,13 @@ export default function App({ Component, pageProps }: any) {
   return (
     <SWRConfig
       value={{
-        fetcher: (url: string) => fetch(url).then((response) => response.json())
+        fetcher: (url: string) =>
+          fetch(url).then((response) => response.json()),
       }}
     >
-      <Component {...pageProps} />
+      <div className="w-full max-w-xl mx-auto bg-violet-900">
+        <Component {...pageProps} />
+      </div>
     </SWRConfig>
   );
 }

@@ -1,6 +1,3 @@
-// import { useRouter } from "next/router";
-// import React, { useEffect } from "react";
-// import useSWR from "swr";
 import Button from "@components/button";
 import Item from "@components/item";
 import Layout from "@components/layout";
@@ -55,8 +52,8 @@ export default () => {
       <Head>
         <title>Home</title>
       </Head>
-      <div>
-        <div className="flex flex-col space-y-5 divide-y">
+      <div className="mx-auto h-[60vh] overflow-y-auto">
+        <div className="flex flex-col space-y-5 divide-y divide-gray-500 overflow-y-visible">
           {dataTweets?.tweets?.map((tweet) => (
             <Item
               id={tweet.id}
@@ -68,11 +65,14 @@ export default () => {
           ))}
         </div>
       </div>
-      <form onSubmit={handleSubmit(onValid)}>
-        <div>
-          <label className="w-full cursor-pointer text-gray-600 hover:border-orange-500 hover:text-orange-500 flex items-center justify-center border-2 border-dashed border-gray-300 h-48 rounded-md">
+      <form
+        className="fixed flex justify-around space-x-5 bg-violet-900 w-full max-w-xl bottom-14 py-8 px-4 z-10"
+        onSubmit={handleSubmit(onValid)}
+      >
+        <div className="w-full relative">
+          <label className="absolute top-4 left-4 cursor-pointer text-gray-300 hover:border-emerald-300 hover:text-emerald-300 flex items-center justify-center border-2 border-dashed border-gray-300 rounded-md">
             <svg
-              className="h-12 w-12"
+              className="h-8 w-8"
               stroke="currentColor"
               fill="none"
               viewBox="0 0 48 48"
@@ -87,13 +87,16 @@ export default () => {
             </svg>
             <input className="hidden" type="file" />
           </label>
+          <div className="pl-16 pr-2 bg-violet-900 border-2 border-gray-600 rounded-xl">
+            <TextArea
+              register={register("content", { required: true })}
+              name="content"
+            />
+          </div>
         </div>
-        <TextArea
-          register={register("content", { required: true })}
-          name="content"
-          label="Content"
-        />
-        <Button text={loading ? "Loading..." : "Tweet"} />
+        <div className="w-16 h-full">
+          <Button text={loading ? "Loading..." : "tweet"}></Button>
+        </div>
       </form>
     </Layout>
   );
